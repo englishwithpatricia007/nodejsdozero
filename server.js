@@ -1,29 +1,37 @@
-/*import { createServer } from 'node:http'
-
-const server = createServer((request, response) => {  
-    //console.log('Server is running...')
-    response.write("Sayonara!")
-    return response.end()
-})
-server.listen(3333, () => {
-    console.log('Server is listening on port 3333')
-})*/
 import { fastify } from 'fastify'
+import { DatabaseMemory } from './database-memory.js'
+
 const server = fastify()
 
-server.get('/', (request, reply) => {
-    return 'Hello World!'
+const db = new DatabaseMemory()
+
+
+//Request Body
+// POST http://localhost:3333/videos
+server.post('/videos', (request, reply) => {
+    const { title, description, url } = request.body	
+    
+    db.create({ title, description, url })
+    return reply.status(201).send()        
 })
 
-server.get('/users', (request, reply) => {
-    return [{ name: 'John Doe', age: 30 }, { name: 'Jane Doe', age: 25 }]
+server.get('/videos', () => {
+    const videos = db.list()
+    console.log(videos)
+    return videos
 })
 
-server.get('/users/:id', (request, reply) => {
+// Router Parameter
+// PUT http://localhost:3333/videos/1
+server.put('/videos/:id', () => {
+    return `Hello!`
+})
+
+server.delete('/videos/:id', (request, reply) => {  
     const { id } = request.params
-    return { id, name: 'John Doe', age: 30 }
+    return `Video ${id} deleted!`
 })
 
 server.listen({
-    port: 3333,
+    port: 3333,         
 })
