@@ -17,14 +17,21 @@ server.post('/videos', (request, reply) => {
 
 server.get('/videos', () => {
     const videos = db.list()
-    console.log(videos)
     return videos
 })
 
 // Router Parameter
 // PUT http://localhost:3333/videos/1
-server.put('/videos/:id', () => {
-    return `Hello!`
+server.put('/videos/:id', (request, reply) => {
+    const videoId = request.params.id
+    const { title, description, url } = request.body
+    const video = db.update(videoId, {
+        title,
+        description,
+        url                 
+    })
+
+    return reply.status(204).send()    
 })
 
 server.delete('/videos/:id', (request, reply) => {  

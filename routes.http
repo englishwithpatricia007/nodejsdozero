@@ -1,5 +1,20 @@
 POST http://localhost:3333/videos
 Content-Type: application/json
+Content-Accept-Language: pt-br
+
+{
+    "title": "My video",
+    "description": "My video description",
+    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"        
+}
+
+### 
+GET http://localhost:3333/videos
+
+###
+PUT http://localhost:3333/videos/
+Content-Type: application/json
+Content-Accept-Language: pt-br
 
 {
     "title": "My video",
