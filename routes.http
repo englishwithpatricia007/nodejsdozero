@@ -3,12 +3,15 @@ Content-Type: application/json
 Content-Accept-Language: pt-br
 
 {
-    "title": "My video",
+    "title": "my video",
     "description": "My video description",
     "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"        
 }
 
 ### 
+GET http://localhost:3333/videos?search=node
+
+###
 GET http://localhost:3333/videos
 
 ###
